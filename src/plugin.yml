@@ -1,0 +1,16 @@
+name: TmodsServerAddons_Wands
+author: Timo Hocker
+version: 1.61
+main: me.tmods.serveraddons.Wands
+website: http://timodsmods.weebly.com
+
+depend: 
+  - TModsServerUtils
+
+commands:
+  wand:
+    description: get your magic wand!
+    usage: /wand [type]
+    
+Permissions:
+  ServerAddons.wands
