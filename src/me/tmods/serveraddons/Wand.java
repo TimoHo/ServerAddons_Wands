@@ -72,6 +72,9 @@ public enum Wand {
 	
 	public static Wand fromString(String s) {
 		try {
+		if (s == null || s == "") {
+			return null;
+		}
 		if (s.equalsIgnoreCase(Explosion.getName()))
 		{
 			return Explosion;
@@ -177,6 +180,9 @@ public enum Wand {
 		return null;
 	}
 	public static Wand fromStringItem(String s) {
+		if (s == null || s == "") {
+			return null;
+		}
 		try {
 		if (s.equalsIgnoreCase(Explosion.getItemName()))
 		{
