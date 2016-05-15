@@ -8,7 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -29,8 +29,8 @@ import org.bukkit.potion.PotionEffectType;
 import me.tmods.serverutils.Methods;
 import me.tmods.serverutils.main;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_9_R1.EnumParticle;
-import net.minecraft.server.v1_9_R1.PacketPlayOutWorldParticles;
+import net.minecraft.server.v1_9_R2.EnumParticle;
+import net.minecraft.server.v1_9_R2.PacketPlayOutWorldParticles;
 
 public class Wands extends JavaPlugin implements Listener{
 	public FileConfiguration lang = YamlConfiguration.loadConfiguration(new File("plugins/TModsServerUtils","lang.yml"));
@@ -39,8 +39,8 @@ public class Wands extends JavaPlugin implements Listener{
 	public HashMap<Entity,Integer> wandtasks = new HashMap<Entity,Integer>();
 	@Override
 	public void onEnable() {
-		if (!main.getVersion().equalsIgnoreCase("v1_9_R1")) {
-			Methods.print("The wands plugin is not Compatible with " + main.getVersion() + ". please use v1_9_R1", false, ChatColor.RED + "");
+		if (!main.getVersion().equalsIgnoreCase("v1_9_R2")) {
+			Methods.print("The wands plugin is not Compatible with " + main.getVersion() + ". please use v1_9_R2", false, ChatColor.RED + "");
 		}
 		Bukkit.getPluginManager().registerEvents(this, this);
 	}

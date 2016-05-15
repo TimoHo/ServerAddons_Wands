@@ -4,7 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 
 import me.tmods.serverutils.Methods;
-import net.minecraft.server.v1_9_R1.EnumParticle;
+import net.minecraft.server.v1_9_R2.EnumParticle;
 
 public enum Wand {
 	Explosion(Material.BLAZE_ROD,"Explosion Wand",EnumParticle.FLAME,Sound.ENTITY_FIREWORK_LAUNCH,"Explosion"),
