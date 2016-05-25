@@ -1,52 +1,49 @@
-package me.tmods.serveraddons;
+package me.tmods.serveraddons.wands;
 
 import org.bukkit.Material;
-import org.bukkit.Sound;
+import me.tmods.api.Sound;
 
+import me.tmods.api.Particle;
 import me.tmods.serverutils.Methods;
-import net.minecraft.server.v1_9_R2.EnumParticle;
 
 public enum Wand {
-	Explosion(Material.BLAZE_ROD,"Explosion Wand",EnumParticle.FLAME,Sound.ENTITY_FIREWORK_LAUNCH,"Explosion"),
-	Heal(Material.STICK,"Healing Wand",EnumParticle.HEART,Sound.ENTITY_PLAYER_BREATH,"Heal"),
-	Protection(Material.IRON_INGOT,"Protection Wand",EnumParticle.CRIT,Sound.ENTITY_IRONGOLEM_STEP,"Protection"),
-	Poison(Material.SPIDER_EYE,"Poison Wand",EnumParticle.WATER_BUBBLE,Sound.BLOCK_GLASS_BREAK,"Poison"),
-	Boost(Material.STICK,"Booster Wand",EnumParticle.FIREWORKS_SPARK,Sound.ENTITY_ENDERDRAGON_FLAP,"Boost"),
-	Damage(Material.WOOD_HOE,"Damage Wand",EnumParticle.DRIP_LAVA,Sound.ENTITY_SPIDER_DEATH,"Damage"),
-	Battle(Material.STICK,"Battle Wand",EnumParticle.DRIP_WATER,Sound.ENTITY_ARROW_HIT,"Battle"),
-	//TODO fix Chunk loading
-	Regen(Material.GOLD_AXE,"Regeneration Wand",EnumParticle.BLOCK_CRACK,Sound.BLOCK_STONE_BREAK,"Regen"),
-	Speed(Material.FLINT_AND_STEEL,"Speed Wand",EnumParticle.FLAME,Sound.ENTITY_LIGHTNING_THUNDER,"Speed"),
-	Invisible(Material.GLASS_BOTTLE,"Invisibility Wand",EnumParticle.WATER_BUBBLE,Sound.AMBIENT_CAVE,"Invisible"),
-	NightVision(Material.THIN_GLASS,"Night Vision Wand",EnumParticle.BLOCK_DUST,Sound.BLOCK_CLOTH_BREAK,"Bright"),
-	Jumping(Material.GLASS_BOTTLE,"Jumping Wand",EnumParticle.CRIT,Sound.ENTITY_PLAYER_ATTACK_STRONG,"Jump"),
-	Slow(Material.SOUL_SAND,"Slowness Wand",EnumParticle.SLIME,Sound.BLOCK_SLIME_PLACE,"Slow"),
-	WaterBreath(Material.GLASS,"Breathing Wand",EnumParticle.WATER_BUBBLE,Sound.ENTITY_PLAYER_BREATH,"WaterBreath"),
-	FireResistance(Material.LAVA_BUCKET,"FireResistance Wand",EnumParticle.FLAME,Sound.BLOCK_FURNACE_FIRE_CRACKLE,"AntiFire"),
-	Strength(Material.GOLD_SWORD,"Strength Wand",EnumParticle.CRIT_MAGIC,Sound.ENTITY_PLAYER_ATTACK_CRIT,"Strong"),
-	Weakness(Material.WOOL,"Weakness Wand",EnumParticle.CLOUD,Sound.BLOCK_CLOTH_STEP,"Weak"),
-	Luck(Material.EXP_BOTTLE,"Luck Wand",EnumParticle.ENCHANTMENT_TABLE,Sound.BLOCK_BREWING_STAND_BREW,"Luck"),
-	UnLuck(Material.EXP_BOTTLE,"UnLuck Wand",EnumParticle.ENCHANTMENT_TABLE,Sound.BLOCK_BREWING_STAND_BREW,"UnLuck"),
-	Haste(Material.GOLD_PICKAXE,"Haste Wand",EnumParticle.CRIT,Sound.BLOCK_STONE_BREAK,"Haste"),
-	MiningFatigue(Material.WOOD_AXE,"Mining Fatigue Wand",EnumParticle.BLOCK_CRACK,Sound.BLOCK_STONE_STEP,"SlowMine"),
-	//TODO fix no effect
-	Nausea(Material.POISONOUS_POTATO,"Nausea Wand",EnumParticle.SLIME,Sound.BLOCK_SLIME_BREAK,"Nausea"),
-	Blindness(Material.OBSIDIAN,"Blindness Wand",EnumParticle.SMOKE_LARGE,Sound.AMBIENT_CAVE,"Blind"),
-	Wither(Material.BLAZE_POWDER,"Wither Wand",EnumParticle.SPELL_WITCH,Sound.ENTITY_WITHER_SHOOT,"Wither"),
-	//TODO fix Remain health
-	HealthBoost(Material.INK_SACK,"Health Boost Wand",EnumParticle.HEART,Sound.ENTITY_PLAYER_BREATH,"AddHealth"),
-	Absorbtion(Material.GOLDEN_APPLE,"Absorbtion Wand",EnumParticle.DRAGON_BREATH,Sound.ENTITY_GENERIC_BURN,"Absorb"),
-	Saturation(Material.COOKED_BEEF,"Saturation Wand",EnumParticle.ITEM_TAKE,Sound.ENTITY_GENERIC_EAT,"Food"),
-	Glowing(Material.GLOWSTONE_DUST,"Glowing Wand",EnumParticle.REDSTONE,Sound.BLOCK_FIRE_EXTINGUISH,"Glow"),
-	Levitation(Material.GOLDEN_CARROT,"Levitation Wand",EnumParticle.SPELL_INSTANT,Sound.ENTITY_SHULKER_BULLET_HIT,"Fly"),
-	Hunger(Material.ROTTEN_FLESH,"Hunger Wand",EnumParticle.CRIT,Sound.ENTITY_GENERIC_EAT,"Hunger"),
-	Clear(Material.MILK_BUCKET,"Clearing Wand",EnumParticle.WATER_BUBBLE,Sound.ENTITY_GENERIC_DRINK,"Clear");
+	Explosion(Material.BLAZE_ROD,"Explosion Wand",Particle.FLAME,Sound.FIREWORK_LAUNCH,"Explosion"),
+	Heal(Material.STICK,"Healing Wand",Particle.HEART,Sound.BLAZE_BREATH,"Heal"),
+	Protection(Material.IRON_INGOT,"Protection Wand",Particle.CRIT,Sound.IRONGOLEM_WALK,"Protection"),
+	Poison(Material.SPIDER_EYE,"Poison Wand",Particle.WATER_BUBBLE,Sound.GLASS,"Poison"),
+	Boost(Material.STICK,"Booster Wand",Particle.FIREWORKS_SPARK,Sound.ENDERDRAGON_WINGS,"Boost"),
+	Damage(Material.WOOD_HOE,"Damage Wand",Particle.DRIP_LAVA,Sound.SPIDER_DEATH,"Damage"),
+	Battle(Material.STICK,"Battle Wand",Particle.DRIP_WATER,Sound.ARROW_HIT,"Battle"),
+	Regen(Material.GOLD_AXE,"Regeneration Wand",Particle.BLOCK_CRACK,Sound.STEP_STONE,"Regen"),
+	Speed(Material.FLINT_AND_STEEL,"Speed Wand",Particle.FLAME,Sound.AMBIENCE_THUNDER,"Speed"),
+	Invisible(Material.GLASS_BOTTLE,"Invisibility Wand",Particle.WATER_BUBBLE,Sound.AMBIENCE_CAVE,"Invisible"),
+	NightVision(Material.THIN_GLASS,"Night Vision Wand",Particle.BLOCK_DUST,Sound.STEP_WOOL,"Bright"),
+	Jumping(Material.GLASS_BOTTLE,"Jumping Wand",Particle.CRIT,Sound.SUCCESSFUL_HIT,"Jump"),
+	Slow(Material.SOUL_SAND,"Slowness Wand",Particle.SLIME,Sound.SLIME_ATTACK,"Slow"),
+	WaterBreath(Material.GLASS,"Breathing Wand",Particle.WATER_BUBBLE,Sound.BLAZE_BREATH,"WaterBreath"),
+	FireResistance(Material.LAVA_BUCKET,"FireResistance Wand",Particle.FLAME,Sound.FIRE,"AntiFire"),
+	Strength(Material.GOLD_SWORD,"Strength Wand",Particle.CRIT_MAGIC,Sound.SUCCESSFUL_HIT,"Strong"),
+	Weakness(Material.WOOL,"Weakness Wand",Particle.CLOUD,Sound.STEP_WOOL,"Weak"),
+	Luck(Material.EXP_BOTTLE,"Luck Wand",Particle.ENCHANTMENT_TABLE,Sound.BLAZE_HIT,"Luck"),
+	UnLuck(Material.EXP_BOTTLE,"UnLuck Wand",Particle.ENCHANTMENT_TABLE,Sound.BLAZE_DEATH,"UnLuck"),
+	Haste(Material.GOLD_PICKAXE,"Haste Wand",Particle.CRIT,Sound.STEP_STONE,"Haste"),
+	MiningFatigue(Material.WOOD_AXE,"Mining Fatigue Wand",Particle.BLOCK_CRACK,Sound.STEP_STONE,"SlowMine"),
+	Nausea(Material.POISONOUS_POTATO,"Nausea Wand",Particle.SLIME,Sound.SLIME_ATTACK,"Nausea"),
+	Blindness(Material.OBSIDIAN,"Blindness Wand",Particle.SMOKE_LARGE,Sound.AMBIENCE_CAVE,"Blind"),
+	Wither(Material.BLAZE_POWDER,"Wither Wand",Particle.SPELL_WITCH,Sound.WITHER_SHOOT,"Wither"),
+	HealthBoost(Material.INK_SACK,"Health Boost Wand",Particle.HEART,Sound.VILLAGER_DEATH,"AddHealth"),
+	Absorbtion(Material.GOLDEN_APPLE,"Absorbtion Wand",Particle.PORTAL,Sound.FIRE,"Absorb"),
+	Saturation(Material.COOKED_BEEF,"Saturation Wand",Particle.ITEM_TAKE,Sound.EAT,"Food"),
+	Glowing(Material.GLOWSTONE_DUST,"Glowing Wand",Particle.REDSTONE,Sound.FIRE_IGNITE,"Glow"),
+	Levitation(Material.GOLDEN_CARROT,"Levitation Wand",Particle.SPELL_INSTANT,Sound.FIREWORK_BLAST,"Fly"),
+	Hunger(Material.ROTTEN_FLESH,"Hunger Wand",Particle.CRIT,Sound.EAT,"Hunger"),
+	Clear(Material.MILK_BUCKET,"Clearing Wand",Particle.WATER_BUBBLE,Sound.DRINK,"Clear");
 	private Material material;
 	private String itemName;
-	private EnumParticle particle;
+	private Particle particle;
 	private Sound sound;
 	private String name;
-	private Wand(Material material,String itemName,EnumParticle particle,Sound sound,String name) {
+	private Wand(Material material,String itemName,Particle particle,Sound sound,String name) {
 		this.material = material;
 		this.itemName = itemName;
 		this.particle = particle;
@@ -63,7 +60,7 @@ public enum Wand {
 	public String getName() {
 		return this.name;
 	}
-	public EnumParticle getParticle() {
+	public Particle getParticle() {
 		return this.particle;
 	}
 	public Sound getSound() {

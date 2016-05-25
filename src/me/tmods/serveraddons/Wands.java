@@ -2,13 +2,12 @@ package me.tmods.serveraddons;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -26,11 +25,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import me.tmods.serveraddons.wands.Wand;
 import me.tmods.serverutils.Methods;
-import me.tmods.serverutils.main;
-import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_9_R2.EnumParticle;
-import net.minecraft.server.v1_9_R2.PacketPlayOutWorldParticles;
 
 public class Wands extends JavaPlugin implements Listener{
 	public FileConfiguration lang = YamlConfiguration.loadConfiguration(new File("plugins/TModsServerUtils","lang.yml"));
@@ -39,9 +35,6 @@ public class Wands extends JavaPlugin implements Listener{
 	public HashMap<Entity,Integer> wandtasks = new HashMap<Entity,Integer>();
 	@Override
 	public void onEnable() {
-		if (!main.getVersion().equalsIgnoreCase("v1_9_R2")) {
-			Methods.print("The wands plugin is not Compatible with " + main.getVersion() + ". please use v1_9_R2", false, ChatColor.RED + "");
-		}
 		Bukkit.getPluginManager().registerEvents(this, this);
 	}
 	@Override
@@ -291,7 +284,7 @@ public class Wands extends JavaPlugin implements Listener{
 						ball.setShooter(event.getPlayer());
 						ball.setVelocity(event.getPlayer().getLocation().getDirection().multiply(2));
 						ball.setCustomName(Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getName());
-						event.getPlayer().getWorld().playSound(event.getPlayer().getLocation(), Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getSound(), 1, 1);
+						Methods.playSound(Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getSound(), event.getPlayer().getLocation(),event.getPlayer());
 						wandtasks.put(ball, Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 							@Override
 							public void run() {
@@ -300,7 +293,7 @@ public class Wands extends JavaPlugin implements Listener{
 									Bukkit.getScheduler().cancelTask(wandtasks.get(ball));
 								}
 								if (event.getPlayer().getWorld().getEntities().contains(ball)) {
-									playEffect(ball.getLocation(), Wand.fromString(ball.getCustomName()).getParticle(), 0.1f, 5, true);
+									Methods.playEffect(ball.getLocation(), Wand.fromString(ball.getCustomName()).getParticle(), 0.1f, 5, true);
 								}
 								} catch (Exception e) {
 									Methods.log(e);
@@ -325,7 +318,7 @@ public class Wands extends JavaPlugin implements Listener{
 					ball.setShooter(event.getPlayer());
 					ball.setVelocity(event.getPlayer().getLocation().getDirection().multiply(2));
 					ball.setCustomName(Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getName());
-					event.getPlayer().getWorld().playSound(event.getPlayer().getLocation(), Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getSound(), 1, 1);
+					Methods.playSound(Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getSound(), event.getPlayer().getLocation(), event.getPlayer());
 					wandtasks.put(ball, Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 						@Override
 						public void run() {
@@ -334,7 +327,7 @@ public class Wands extends JavaPlugin implements Listener{
 								Bukkit.getScheduler().cancelTask(wandtasks.get(ball));
 							}
 							if (event.getPlayer().getWorld().getEntities().contains(ball)) {
-								playEffect(ball.getLocation(), Wand.fromString(ball.getCustomName()).getParticle(), 0.1f, 5, true);
+								Methods.playEffect(ball.getLocation(), Wand.fromString(ball.getCustomName()).getParticle(), 0.1f, 5, true);
 							}
 							} catch (Exception e) {
 								Methods.log(e);
@@ -395,28 +388,5 @@ public class Wands extends JavaPlugin implements Listener{
 			Methods.log(e);
 		}
 		return false;
-	}
-	public void playEffect(Location loc, EnumParticle part, float offset, int amount, boolean showDistance) {
-		try {
-		PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(
-				part,
-				showDistance,
-				(float)loc.getX(),
-				(float)loc.getY(),
-				(float)loc.getZ(),
-				offset,
-				offset,
-				offset,
-				0.0F,
-				amount,
-				0,
-				0
-		);
-		for (Player player:Bukkit.getOnlinePlayers()) {
-			((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
-		}
-		} catch (Exception e) {
-			Methods.log(e);
-		}
 	}
 }
