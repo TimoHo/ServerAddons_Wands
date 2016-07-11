@@ -29,7 +29,6 @@ import me.tmods.serveraddons.wands.Wand;
 import me.tmods.serverutils.Methods;
 
 public class Wands extends JavaPlugin implements Listener{
-	public FileConfiguration lang = YamlConfiguration.loadConfiguration(new File("plugins/TModsServerUtils","lang.yml"));
 	public File maincfgfile = new File("plugins/TModsServerUtils","config.yml");
 	public FileConfiguration maincfg = YamlConfiguration.loadConfiguration(maincfgfile);
 	public HashMap<Entity,Integer> wandtasks = new HashMap<Entity,Integer>();
@@ -275,16 +274,16 @@ public class Wands extends JavaPlugin implements Listener{
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		try {
-		if (event.getPlayer().getInventory().getItemInMainHand() != null) {
-			if (event.getPlayer().getInventory().getItemInMainHand().hasItemMeta()) {
-				if (event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName() != null) {
-					if (Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()) != null) {
+		if (Methods.getItemInHand(event.getPlayer()) != null) {
+			if (Methods.getItemInHand(event.getPlayer()).hasItemMeta()) {
+				if (Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName() != null) {
+					if (Wand.fromStringItem(Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName()) != null) {
 						event.setCancelled(true);
 						org.bukkit.entity.Snowball ball = (org.bukkit.entity.Snowball) event.getPlayer().getWorld().spawn(event.getPlayer().getEyeLocation(), EntityType.SNOWBALL.getEntityClass());
 						ball.setShooter(event.getPlayer());
 						ball.setVelocity(event.getPlayer().getLocation().getDirection().multiply(2));
-						ball.setCustomName(Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getName());
-						Methods.playSound(Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getSound(), event.getPlayer().getLocation(),event.getPlayer());
+						ball.setCustomName(Wand.fromStringItem(Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName()).getName());
+						event.getPlayer().playSound(event.getPlayer().getLocation(), Wand.fromStringItem(Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName()).getSound(), 1, 1);
 						wandtasks.put(ball, Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 							@Override
 							public void run() {
@@ -311,14 +310,14 @@ public class Wands extends JavaPlugin implements Listener{
 	@EventHandler
 	public void onInteractEntity(PlayerInteractAtEntityEvent event) {
 		try {
-		if (event.getPlayer().getInventory().getItemInMainHand() != null) {
-			if (event.getPlayer().getInventory().getItemInMainHand().hasItemMeta()) {
-				if (Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()) != null) {
+		if (Methods.getItemInHand(event.getPlayer()) != null) {
+			if (Methods.getItemInHand(event.getPlayer()).hasItemMeta()) {
+				if (Wand.fromStringItem(Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName()) != null) {
 					org.bukkit.entity.Snowball ball = (org.bukkit.entity.Snowball) event.getPlayer().getWorld().spawn(event.getPlayer().getEyeLocation(), EntityType.SNOWBALL.getEntityClass());
 					ball.setShooter(event.getPlayer());
 					ball.setVelocity(event.getPlayer().getLocation().getDirection().multiply(2));
-					ball.setCustomName(Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getName());
-					Methods.playSound(Wand.fromStringItem(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()).getSound(), event.getPlayer().getLocation(), event.getPlayer());
+					ball.setCustomName(Wand.fromStringItem(Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName()).getName());
+					event.getPlayer().playSound(event.getPlayer().getLocation(), Wand.fromStringItem(Methods.getItemInHand(event.getPlayer()).getItemMeta().getDisplayName()).getSound(), 1, 1);
 					wandtasks.put(ball, Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 						@Override
 						public void run() {
@@ -365,7 +364,7 @@ public class Wands extends JavaPlugin implements Listener{
 		try {
 		if (cmd.getName().equalsIgnoreCase("wand")) {
 			if (!sender.hasPermission("ServerAddons.wand")) {
-				sender.sendMessage(lang.getString(maincfg.getString("language") + ".permdeny"));
+				sender.sendMessage("You don't have access to that command!");
 				return true;
 			}
 			if (args.length != 1) {
